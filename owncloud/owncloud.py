@@ -908,8 +908,7 @@ class Client(object):
                                     'id': data_el.find('id').text,
                                     'path': path,
                                     'url': data_el.find('url').text,
-                                    'token': data_el.find('token').text,
-                                    'name': data_el.find('name').text
+                                    'token': data_el.find('token').text
                                 }
             )
         raise HTTPResponseError(res)
