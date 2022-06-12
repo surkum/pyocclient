@@ -9,6 +9,7 @@ share them or access application attributes.
 """
 
 import datetime
+import queue
 import time
 import requests
 import xml.etree.ElementTree as ET
@@ -1007,22 +1008,41 @@ class Client(object):
             return shares
         raise HTTPResponseError(res)
 
-    def create_user(self, user_name, initial_password):
+    def create_user(self, user_name, initial_password, display_name=None, email=None, quota=None, language=None):
         """Create a new user with an initial password via provisioning API.
         It is not an error, if the user already existed before.
         If you get back an error 999, then the provisioning API is not enabled.
 
         :param user_name:  name of user to be created
         :param initial_password:  password for user being created
+        :param display_name:  display name to set for the user
+        :param email:  email to set for the user
+        :param quota:  quota to set for the user
+        :param quota:  user language 
         :returns: True on success
         :raises: HTTPResponseError in case an HTTP error status was returned
 
         """
+
+        data = {'password': initial_password, 'userid': user_name}
+        
+        if quota:
+            data['quota'] = quota
+        
+        if email:
+            data['email'] = email
+
+        if display_name:
+            data['displayName'] = display_name
+
+        if language:
+            data['language'] = language
+
         res = self._make_ocs_request(
             'POST',
             self.OCS_SERVICE_CLOUD,
             'users',
-            data={'password': initial_password, 'userid': user_name}
+            data=data
         )
 
         # We get 200 when the user was just created.
