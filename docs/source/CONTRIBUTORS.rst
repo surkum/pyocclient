@@ -18,3 +18,4 @@ Contributors
 * Florian Zierer <florian.zierer@moticon.de>
 * mrwunderbar666 <paul.balluff@gmail.com>
 * NikosChondros <n.chondros@di.uoa.gr>
+* Marco Mastasi <m.nastasi@pragmaticminds.de>

@@ -5,7 +5,7 @@
 from setuptools import setup
 import io
 
-version = '0.6'
+version = '0.7.1'
 
 long_description = (
     io.open('README.rst', encoding='utf-8').read()
@@ -19,22 +19,20 @@ long_description = (
     + '\n')
 
 setup(
-    name='pyocclient',
+    name='pyncclient',
     version=version,
-    author='Vincent Petry',
-    author_email='pvince81@owncloud.com',
-    packages=['owncloud', 'owncloud.test'],
-    url='https://github.com/owncloud/pyocclient/',
+    author='Suriem Kumite',
+    author_email='salvo@test.com',
+    packages=['nextcloud_client', 'nextcloud_client.test'],
+    url='https://github.com/surkum/pyncclient',
     license='LICENSE.txt',
-    description='Python client library for ownCloud',
+    description='Python client library for nextCloud',
     long_description=long_description,
     install_requires=[
-        "requests >= 2.0.1",
-        "six"
+        "requests >= 2.0.1"
     ],
     classifiers=[
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 3',
         'Development Status :: 4 - Beta',
         'Environment :: Web Environment',

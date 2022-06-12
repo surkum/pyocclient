@@ -1,27 +1,27 @@
 ==================================
-Python client library for ownCloud
+Python client library for nextCloud
 ==================================
 
-.. image:: https://travis-ci.org/owncloud/pyocclient.svg?branch=master
-    :target: https://travis-ci.org/owncloud/pyocclient
 
-This pure python library makes it possible to connect to an ownCloud instance
+This is a fork of https://github.com/owncloud/pyocclient to provide compatibility with nextCloud, 
+this client will not maintain compatibility to ownCloud.
+
+This pure python library makes it possible to connect to an nextCloud instance
 and perform file, share and attribute operations.
 
 Please note that this is **not** a sync client implementation but a library
-that provides functions to abstract away HTTP calls for various ownCloud APIs.
+that provides functions to abstract away HTTP calls for various nextCloud APIs.
 
-See the `ownCloud homepage <http://owncloud.org>`_ for more information about ownCloud.
+See the `nextCloud homepage <http://nextcloud.org>`_ for more information about nextCloud.
 
 Features
 ========
 
-Supports connecting to ownCloud 8.2, 9.0, 9.1 and newer.
 
 General information
 -------------------
 
-- retrieve information about ownCloud instance (e.g. version, host, URL, etc.)
+- retrieve information about nextCloud instance (e.g. version, host, URL, etc.)
 
 Accessing files
 ---------------
@@ -75,14 +75,14 @@ Automatic installation with pip:
 
 .. code-block:: bash
 
-    $ pip install pyocclient
+    $ pip install git+https://github.com/surkum/pyncclient.git
 
 Manual installation of development version with git:
 
 .. code-block:: bash
 
     $ pip install requests
-    $ git clone https://github.com/owncloud/pyocclient.git
+    $ git clone https://github.com/surkum/pyocclient.git
     $ cd pyocclient
     $ python setup.py install
 
@@ -93,51 +93,51 @@ Example for uploading a file then sharing with link:
 
 .. code-block:: python
 
-    import owncloud
+    import nextcloud_client
 
-    oc = owncloud.Client('http://domain.tld/owncloud')
+    nc = nextcloud_client.Client('http://domain.tld/nextcloud')
 
-    oc.login('user', 'password')
+    nc.login('user', 'password')
 
-    oc.mkdir('testdir')
+    nc.mkdir('testdir')
 
-    oc.put_file('testdir/remotefile.txt', 'localfile.txt')
+    nc.put_file('testdir/remotefile.txt', 'localfile.txt')
 
-    link_info = oc.share_file_with_link('testdir/remotefile.txt')
+    link_info = nc.share_file_with_link('testdir/remotefile.txt')
 
-    print "Here is your link: " + link_info.get_link()
+    print(f"Here is your link: {link_info.get_link()}")
 
 Example for uploading a file to a public shared folder:
 
 .. code-block:: python
 
-    import owncloud
+    import nextcloud_client
 
-    public_link = 'http://domain.tld/owncloud/A1B2C3D4'
+    public_link = 'http://domain.tld/nextcloud/A1B2C3D4'
 
-    oc = owncloud.Client.from_public_link(public_link)
-    oc.drop_file('myfile.zip')
+    nc = nextcloud_client.Client.from_public_link(public_link)
+    nc.drop_file('myfile.zip')
 
 
 Example for downloading a file from a public shared folder with password:
 
 .. code-block:: python
 
-    import owncloud
+    import nextcloud_client
 
-    public_link = 'http://domain.tld/owncloud/A1B2C3D4'
+    public_link = 'http://domain.tld/nextcloud/A1B2C3D4'
     folder_password = 'secret'
 
-    oc = owncloud.Client.from_public_link(public_link, folder_password=folder_password)
-    oc.get_file('/sharedfile.zip', 'download/destination/sharedfile.zip')
+    nc = nextcloud_client.Client.from_public_link(public_link, password=folder_password)
+    nc.get_file('/sharedfile.zip', 'download/destination/sharedfile.zip')
 
 Running the unit tests
 ======================
 
-To run the unit tests, create a config file called "owncloud/test/config.py".
-There is a config file example called "owncloud/test/config.py.sample". All the
+To run the unit tests, create a config file called "nextcloud_client/test/config.py".
+There is a config file example called "nextcloud_client/test/config.py.sample". All the
 information required is in that file. 
-It should point to a running ownCloud instance to test against.
+It should point to a running nextCloud instance to test against.
 
 You might also need to install the unittest-data-provider package:
 
@@ -159,7 +159,7 @@ Then run the following commands:
 
 .. code-block:: bash
 
-    $ sphinx-apidoc -e -f -o docs/source owncloud/ owncloud/test
+    $ sphinx-apidoc -e -f -o docs/source nextcloud_client/ nextcloud_client/test
     $ cd docs
     $ make html
 
